@@ -7,8 +7,10 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'main.views.home', name='ripplect_home'),
-    url(r'^$', 'main.views.home'),
     url(r'^admin/', include(admin.site.urls)),    
+    url(r'^account/', include('accounts.urls')),
+    url(r'^$', 'main.views.home',name='ripplect_home'),
+
     # url(r'^admin/', include(admin.site.urls)),
     # url(r'^ripplect/', include('ripplect.foo.urls')),
 
@@ -17,4 +19,17 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
 
+)
+
+
+
+urlpatterns += patterns(
+	'django.contrib.auth.views',
+	
+	url(r'^login/$', 'login', 
+		{'template_name':'login.html'},
+		name='ripplect_login'),
+	url(r'^logout/$', 'logout',
+		{'next_page':'ripplect_home'},
+		name='ripplect_logout'),
 )

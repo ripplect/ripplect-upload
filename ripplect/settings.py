@@ -1,7 +1,15 @@
 # Django settings for ripplect project.
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+# TEMPLATE_CONTEXT_PROCESSORS += (
+#     'django.core.context_processors.request',
+# )
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
+
 
 ADMINS = (
     ('Ripplect Admin', 'ripplect@gmail.com'),
@@ -10,7 +18,6 @@ ADMINS = (
 MANAGERS = ADMINS
 
 # Settigs for the database
-import os
 if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
     # Running on production App Engine, so use a Google Cloud SQL database.
     DATABASES = {
@@ -45,15 +52,6 @@ else:
         }
     }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql', 
-#         'HOST': '/cloudsql/ripplect-datastore-05222015:ripplect-db1',
-#         'NAME': 'rippledb',
-#         'USER': 'ripplect',
-#         'PASSWORD':'ripple@123',
-#     }
-# }
 
 
 
@@ -119,6 +117,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    os.path.join(BASE_DIR,"static"),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -158,6 +157,8 @@ ROOT_URLCONF = 'ripplect.urls'
 WSGI_APPLICATION = 'ripplect.wsgi.application'
 
 TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR,"templates",),
+    # '/Users/swadhin/code/django/appengine/src/ripplect-upload/templates',
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -173,6 +174,9 @@ INSTALLED_APPS = (
     'endless_pagination',
     'crispy_forms',
     'main',
+    'accounts',
+    'data',
+    'ripple',
 
 )
 
